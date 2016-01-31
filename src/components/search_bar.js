@@ -20,6 +20,7 @@ class SearchBar extends Component {
   render() {
     // return <input onChange={this.onInputChange} />  // taps into onChange {vanilla JS} and calls function in {}
     // below: when onChange triggered, ES6 function runs and we use this.setState to set state
+    //        you can optionally set start value below, and it will still re-render with changes
     return (
       <div>
         <input 

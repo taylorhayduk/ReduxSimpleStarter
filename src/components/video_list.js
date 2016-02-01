@@ -7,7 +7,12 @@ import VideoListItem from './video_list_item';
 
 const VideoList = (props) => {
   const videoItems = props.videos.map((video) => {
-    return <VideoListItem key={video.etag} video={video} />
+    return (
+      <VideoListItem
+        onVideoSelect={props.onVideoSelect}
+        key={video.etag}
+        video={video} />
+    )
     // above we set the key for each video to be something unique (etag is unique YouTube val)
   });
 

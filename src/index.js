@@ -38,6 +38,7 @@
 //////////////////// UDEMY REACT & REDUX Section 2 /////////////////////
 ////////////////////////////////////////////////////////////////////////
 
+import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
@@ -51,24 +52,40 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { videos: [] };
+    this.state = { 
+      videos: [],
+      selectedVideo: null
+    };
 
-    YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {  // standard arrow function
-      this.setState({ videos });
-      // this.setState({videos: videos}) >> only works when key and variable name are the same
+    this.videoSearch('TestTube News');
+  }
+
+  videoSearch(term) {
+    YTSearch({key: API_KEY, term: term}, (videos) => {
+      this.setState({ 
+        videos: videos,
+        selectedVideo: videos[0]
+      });
     })
   }
+
   render() {
+    const videoSearch = _.debounce((term) => {this.videoSearch(term)}, 300);
+    // use lodash to make videoSearch only run every 300 ms
+
     return (
       <div>
-        <SearchBar />
-        <VideoDetail video={this.state.videos[0]}/>
-        <VideoList videos={this.state.videos} />
+        <SearchBar onSearchTermChange={videoSearch} />
+        <VideoDetail video={this.state.selectedVideo}/>
+        <VideoList 
+          onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+          videos={this.state.videos} />
       </div>
     );
     // use {} to reference javascript variable inside JSX
     // pass videos prop to the VideoList component (arrives as argument in function)
     // Note: use props in functional component and this.props in class component
+    // onVideoSelect is a callback passed '2 levels' down to video_list_item
   }
 }
 ReactDOM.render(<App />, document.querySelector('.container'));

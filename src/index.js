@@ -2,7 +2,7 @@
 //////////////////// UDEMY REACT & REDUX Section 1 /////////////////////
 ////////////////////////////////////////////////////////////////////////
 
-// // Note: Use babel.io to see ES6 + JSX >>> Vanilla ES5
+// // Note: Use babeljs.io to see ES6 + JSX >>> Vanilla ES5
 
 // // Import react & react-dom from node_modules
 // import React from 'react';
